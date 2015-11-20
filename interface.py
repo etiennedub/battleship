@@ -4,7 +4,7 @@ class classInterface():
 
     def __init__(self,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
         #super().__init__()
-        self.coord1 = (0,0,'0')
+        self.coord1 = None
         self.coord2 = None
         turtle.ht() #hide the turtle
         turtle.penup() #stop drawing
