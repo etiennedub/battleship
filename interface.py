@@ -1,11 +1,10 @@
 import turtle
-from game import classGame as game
 
-class classInterface(game):
+class classInterface():
 
     def __init__(self,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
-        super().__init__()
-        self.coord1 = None
+        #super().__init__()
+        self.coord1 = (0,0,'0')
         self.coord2 = None
         turtle.ht() #hide the turtle
         turtle.penup() #stop drawing
@@ -48,21 +47,22 @@ class classInterface(game):
         turtle.Screen().onscreenclick(None)
         column,line,player = self.position(x,y)
         if column != player:
-            self.coord1 == (column,line,player)
-            turtle.Screen().onscreenclick(self.setCoord2)
+            self.coord1 = (column,line,player)
+            print(self.coord1)
+            print(column,line,player)
+            return self
         else:
             print("Mauvaise coordone")
             turtle.Screen().onscreenclick(self.setCoord1)
-        
+
     def setCoord2(self,x,y):
         turtle.Screen().onscreenclick(None)
         column,line,player = self.position(x,y)
         if column != player:
-            self.coord2 == (column,line,player)
+            self.coord2 = (column,line,player)
             #self.setCoord = 1
             print(self.coord2,self.coord1)
             #self.drawLine("gray",self.coord1,self.coord2)
-            self.placeShips5()
         else:
             print("Mauvaise coordone")
             turtle.Screen().onscreenclick(self.setCoord2)
@@ -73,13 +73,14 @@ class classInterface(game):
             return(0,0,0)
         elif x < 0:
             player = "enemy"
-            column = 13 + (int(x)-25)/25
-            line = (abs(int(y)-100))/25+1
+            column = 13 + int((int(x)-50)/25)
+            line = int((abs(int(y)-100))/25)+1
+            print(column,line,player)
             return(column,line,player)
         else:
             player = "you"
-            column = (int(x)-25)/25 + 1 #Position collone de 1 a 10
-            line = (abs(int(y)-100))/25+1
+            column = int((int(x)-25)/25) + 1 #Position collone de 1 a 10
+            line = int((abs(int(y)-100))/25)+1
             return(column,line,player)
 
     def drawCircle(self,x,y,color): #entrer collonne et line pour dessiner un cercle au centre
@@ -90,5 +91,4 @@ class classInterface(game):
         if player == "enemy":
             turtle.goto(-287+(25*column),113-25*line)
             turtle.dot(20,color)
-
 
