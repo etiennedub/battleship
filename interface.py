@@ -22,9 +22,9 @@ class classInterface():
 
     def drawLine(self,color,coord1,coord2): #coordX accepte un tuple (column,line,"player") et dessine une ligne horizontal ou vertical de coor1 a coord2
         if coord1[2] == coord2[2] and coord2[2] == "you":
-            turtle.goto(13+coord1[0]*25,112-25*coord1[1])
+            turtle.goto(38+coord1[0]*25,87-25*coord1[1])
         elif coord1[2] == coord2[2] and coord2[2] == "enemy":
-            turtle.goto(-287+(25*coord1[0]),112-25*coord1[1])
+            turtle.goto(-262+(25*coord1[0]),87-25*coord1[1])
         else:
             print('wrong player')
             return 0
@@ -43,13 +43,12 @@ class classInterface():
             return 0
         turtle.penup()
         return 1
+
     def setCoord1(self,x,y): #set coord1 (colum,line,"player")
         turtle.Screen().onscreenclick(None)
         column,line,player = self.position(x,y)
         if column != player:
             self.coord1 = (column,line,player)
-            print(self.coord1)
-            print(column,line,player)
             return self
         else:
             print("Mauvaise coordone")
@@ -61,7 +60,6 @@ class classInterface():
         if column != player:
             self.coord2 = (column,line,player)
             #self.setCoord = 1
-            print(self.coord2,self.coord1)
             #self.drawLine("gray",self.coord1,self.coord2)
         else:
             print("Mauvaise coordone")
@@ -73,22 +71,20 @@ class classInterface():
             return(0,0,0)
         elif x < 0:
             player = "enemy"
-            column = 13 + int((int(x)-50)/25)
-            line = int((abs(int(y)-100))/25)+1
-            print(column,line,player)
+            column = 12 + int((int(x)-50)/25)
+            line = int((abs(int(y)-100))/25)
             return(column,line,player)
         else:
             player = "you"
-            column = int((int(x)-25)/25) + 1 #Position collone de 1 a 10
-            line = int((abs(int(y)-100))/25)+1
+            column = int((int(x)-25)/25)  #Position collone de 0 a 9
+            line = int((abs(int(y)-100))/25)
             return(column,line,player)
 
     def drawCircle(self,x,y,color): #entrer collonne et line pour dessiner un cercle au centre
         column,line,player = self.position(x,y)
         if player == "you":
-            turtle.goto(13+column*25,113-25*line)
+            turtle.goto(38+column*25,88-25*line)
             turtle.dot(20,color)
         if player == "enemy":
-            turtle.goto(-287+(25*column),113-25*line)
+            turtle.goto(-262+(25*column),88-25*line)
             turtle.dot(20,color)
-

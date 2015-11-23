@@ -4,6 +4,10 @@ from game import classGame as game #Importer la class de l'interface
 def main():
     if i.phase == "PlaceShip":
         i.placeShip()
+    elif i.phase == "Attack": # Nom fictif
+      print('Mode attaque')
+    elif i.phase == "Recevoir": # Nom fictif
+      pass
     else:
         print('out')
     turtle.ontimer(main,500)
