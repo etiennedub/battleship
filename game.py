@@ -25,7 +25,7 @@ class classGame(interface):
                 self.firstTime = False
             self.shipX(self.ship[0])
         else:
-            self.phase = False
+            pass
 
     def shipX(self,x):
         if self.coord1 == None:
@@ -36,8 +36,9 @@ class classGame(interface):
             return None
         if abs(self.coord2[0] - self.coord1[0]) != (x-1) and abs(self.coord2[1] - self.coord1[1]) != (x-1):#Si ligne n'est pas de la bonne longueur
             self.coord2,self.coord1 = None,None
-            return None
             print("La dimension du bateau est de {} cases".format(x))
+            return None
+
 # si aucun des if precedent n'est vrai, le code suivant s'execute
         backupBoard = self.BoardYou
 
@@ -76,3 +77,5 @@ class classGame(interface):
             self.firstTime = True
             self.coord1,self.coord2 = None,None
             return None
+
+    def check_u(self, coord):#retourne "toucher", "couler", "à l'eau", "Game Over", "Grats"
