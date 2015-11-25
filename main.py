@@ -5,7 +5,7 @@ def main():
     if i.phase == "PlaceShip":
         i.placeShip()
     elif i.phase == "Attack": # Nom fictif
-      print('Mode attaque')
+        print('p')
     elif i.phase == "Recevoir": # Nom fictif
       pass
     else:
