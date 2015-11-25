@@ -39,7 +39,7 @@ class classGame(interface):
         while coordEnemy == None:#reste dans la boucle jusqua une position soit retourner par lautre joueur
             coordEnemy = self.attaquer() #return (column,line)
         print(coordEnemy)
-        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),'red')#appel la fonction a Hamed a changer
+        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),'red')#appel la fonction a Ahamed a changer
 
     def placeShip(self):
         if self.firstTime == True:
@@ -104,5 +104,17 @@ class classGame(interface):
             self.coord1,self.coord2 = None,None
             return None
 
-    def check_u(self, coord):#retourne "toucher", "couler", "� l'eau", "Game Over", "Grats"
-      pass
+    def checkShip(self, coord):
+        for i in self.shipYou:
+            if coord in i:
+                i.remove(coord)
+                if len(i)==0:
+                    return 'coulé'
+                else:
+                    return 'touché'
+
+    def checkWin(self):
+        for i in self.shipYou:
+            if len(i) != 0:
+                return None
+        return 'win'
