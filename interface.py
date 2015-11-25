@@ -1,9 +1,10 @@
 import turtle
+from reseau import ClientReseau as reseau
 
-class classInterface():
+class classInterface(reseau):
 
-    def __init__(self,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
-        #super().__init__()
+    def __init__(self,pseudo,*,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
+        super().__init__(pseudo)
         self.coord1 = None
         self.coord2 = None
         turtle.ht() #hide the turtle
@@ -80,8 +81,8 @@ class classInterface():
             line = int((abs(int(y)-100))/25)
             return(column,line,player)
 
-    def drawCircle(self,x,y,color): #entrer collonne et line pour dessiner un cercle au centre
-        column,line,player = self.position(x,y)
+    def drawCircle(self,position,color): #entrer collonne et line pour dessiner un cercle au centre
+        column,line,player = position
         if player == "you":
             turtle.goto(38+column*25,88-25*line)
             turtle.dot(20,color)

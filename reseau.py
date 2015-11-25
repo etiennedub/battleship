@@ -27,9 +27,9 @@ class ClientReseau(object):
         self.rapport_envoyee = False
         if self.adv is None:
             if partie['hote'] != self.pseudo:
-                self.adv = partie['adversaire']
+                self.adv = partie['hote']# jai inverser hote et adversaire dans le code du prof
             else:
-                self.adv = partie['hote']
+                self.adv = partie['adversaire']# meme chose
 
     def adversaire(self):
         """Retourne le pseudonyme de votre adversaire."""
@@ -38,7 +38,7 @@ class ClientReseau(object):
     def attaquer(self, cellule=None):
         """Transmet au serveur la cellule de votre attaque. Cette cellule est constituée d'un
         tuple de deux indices compris entre 0 et 9.
-        
+
         :param cellule: La cellule à attaquer sous la forme d'un tuple de deux indices compris
         entre 0 et 9. Pour vérifier si la réponse de l'adversaire est arriver, il faut mettre l'argument à None.
         :return: La cellule attaquée par votre adversaire si celle-ci est disponible; None autrement.

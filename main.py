@@ -5,7 +5,7 @@ def main():
     if i.phase == "PlaceShip":
         i.placeShip()
     elif i.phase == "Attack": # Nom fictif
-        print('p')
+        i.attack()
     elif i.phase == "Recevoir": # Nom fictif
       pass
     else:
@@ -13,7 +13,9 @@ def main():
     turtle.ontimer(main,500)
 
 if __name__ == '__main__':
-    i = game()
+    pseudo = input('Entrer votre pseudo: ')
+    i = game(pseudo)
+    print('Votre adversaire est: '+ str(i.adv))
     i.phase = "PlaceShip"
     main()
     turtle.listen()

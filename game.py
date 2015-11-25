@@ -3,26 +3,49 @@ from interface import classInterface as interface
 
 class classGame(interface):
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self,pseudo):
+        super().__init__(pseudo)
         self.phase = False
-        self.ship = [2,3,3,4,5]
+        self.ship = [2]#original [2,3,3,4,5]
         self.shipYou = []
         self.firstTime = True
         self.BoardEnemy = [] #liste de l'enemie
         self.BoardYou = [] #votre liste
         firstTime = 0
-        for x in range(len(self.ship)): self.shipYou.append([])# chaque liste va contenir des tuples qui sont la positions des bateaux en (column,line)
+        for x in range(len(self.ship)): self.shipYou.append([])
         for x in range(10):
             self.BoardYou.append(['.','.','.','.','.','.','.','.','.','.',])
             self.BoardEnemy.append(['.','.','.','.','.','.','.','.','.','.',])#Les deux liste ont 10 listes de 10 espaces (Ex.: liste[line][column])
                                         # " " est une espace vide (a l'eau), un chiffre (de 0 a 4) vaut un bateau
                                         #, un chiffre en string ("1") est un bateau touche et un "x" en string est un tir a l'eau
                                         # c'est la place qu'on utilise (line,column) tout les autre endroit cest (column,line) aka (x,y)
+    def attack(self):
+        if self.firstTime == True:
+          print('Clicker sur la case a attaquer')
+          self.firstTime = False
+        if self.coord1 == None:
+            turtle.Screen().onclick(self.setCoord1)
+            return None
+        if self.coord1[2] != 'enemy':
+          print('mauvais joueur!')
+          self.coord1 = None
+          return None
+        self.firstTime = True
+        coordEnemy = None
+        self.attaquer(cellule = (self.coord1[0],self.coord1[1]))
+        self.drawCircle(self.coord1,'blue')
+        self.coord1 = None
+        #self.phase = 'recevoir'
+        while coordEnemy == None:#reste dans la boucle jusqua une position soit retourner par lautre joueur
+            coordEnemy = self.attaquer() #return (column,line)
+        print(coordEnemy)
+        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),'red')#appel la fonction a Hamed a changer
+
     def placeShip(self):
         if self.firstTime == True:
             print("Placer le bateau de {} cases".format(self.ship[0]))
             self.firstTime = False
+            self.shipX(self.ship[0])
         self.shipX(self.ship[0])
 
     def shipX(self,x):
