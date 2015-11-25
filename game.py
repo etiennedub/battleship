@@ -33,13 +33,38 @@ class classGame(interface):
         self.firstTime = True
         coordEnemy = None
         self.attaquer(cellule = (self.coord1[0],self.coord1[1]))
-        self.drawCircle(self.coord1,'blue')
-        self.coord1 = None
+        self.drawCircle(self.coord1,'gray')
         #self.phase = 'recevoir'
         while coordEnemy == None:#reste dans la boucle jusqua une position soit retourner par lautre joueur
             coordEnemy = self.attaquer() #return (column,line)
-        print(coordEnemy)
-        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),'red')#appel la fonction a Ahamed a changer
+        toucheYou = self.checkShip(coordEnemy)
+        if self.checkWin() == 'win':
+          toucheYou = 'win'
+        if toucheYou == 'coulé' or toucheYou == 'touché':
+          color = 'red'
+          self.rapporter(message = toucheYou)
+        elif toucheYou == 'win':
+          self.rapporter(message = 'win')
+          self.phase = 'lose'
+          return None
+        else:
+          self.rapporter(message = "A l'eau")
+          color = 'blue'
+        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),color)#appel la fonction a Ahamed a changer
+        toucheEnemy = None
+        while toucheEnemy == None:
+          toucheEnemy = self.rapporter()
+        print(toucheEnemy)
+        if toucheEnemy in ('coulé','touché'):
+          color = 'red'
+        elif toucheEnemy == 'win':
+          print('Vous avez gagne')
+          self.phase = 'win'
+          return None
+        else:
+          color = 'blue'
+        self.drawCircle(self.coord1,color)
+        self.coord1 = None
 
     def placeShip(self):
         if self.firstTime == True:
@@ -54,6 +79,10 @@ class classGame(interface):
             return None
         if self.coord2 == None:
             turtle.Screen().onclick(self.setCoord2)
+            return None
+        if self.coord1[2] == 'enemy' or self.coord2[2] == 'enemy':
+            print('Mauvais joueur')
+            self.coord2,self.coord1 = None,None
             return None
         if abs(self.coord2[0] - self.coord1[0]) != (x-1) and abs(self.coord2[1] - self.coord1[1]) != (x-1):#Si ligne n'est pas de la bonne longueur
             self.coord2,self.coord1 = None,None
@@ -104,7 +133,8 @@ class classGame(interface):
             self.coord1,self.coord2 = None,None
             return None
 
-    def checkShip(self, coord):
+    def checkShip(self,coord):
+        coord = (coord[0],coord[1])#coord arrive en liste et je le tranforme en tuple
         for i in self.shipYou:
             if coord in i:
                 i.remove(coord)
@@ -112,6 +142,7 @@ class classGame(interface):
                     return 'coulé'
                 else:
                     return 'touché'
+        return None
 
     def checkWin(self):
         for i in self.shipYou:

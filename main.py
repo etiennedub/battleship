@@ -6,8 +6,10 @@ def main():
         i.placeShip()
     elif i.phase == "Attack": # Nom fictif
         i.attack()
-    elif i.phase == "Recevoir": # Nom fictif
-      pass
+    elif i.phase == "win":
+        print('Vous avez gagne!!!!!!!!!!!')
+    elif i.phase == "lose":
+        print('Vous avez perdu!!!!!!')
     else:
         print('out')
     turtle.ontimer(main,500)
