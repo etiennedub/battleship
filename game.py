@@ -15,10 +15,9 @@ class classGame(interface):
         for x in range(len(self.ship)): self.shipYou.append([])
         for x in range(10):
             self.BoardYou.append(['.','.','.','.','.','.','.','.','.','.',])
-            self.BoardEnemy.append(['.','.','.','.','.','.','.','.','.','.',])#Les deux liste ont 10 listes de 10 espaces (Ex.: liste[line][column])
+            self.BoardEnemy.append(['.','.','.','.','.','.','.','.','.','.',])#Les deux liste ont 10 listes de 10 espaces (Ex.: liste[i][j])
                                         # " " est une espace vide (a l'eau), un chiffre (de 0 a 4) vaut un bateau
                                         #, un chiffre en string ("1") est un bateau touche et un "x" en string est un tir a l'eau
-                                        # c'est la place qu'on utilise (line,column) tout les autre endroit cest (column,line) aka (x,y)
     def attack(self):
         if self.firstTime == True:
           print('Clicker sur la case a attaquer')
@@ -36,7 +35,7 @@ class classGame(interface):
         self.drawCircle(self.coord1,'gray')
         #self.phase = 'recevoir'
         while coordEnemy == None:#reste dans la boucle jusqua une position soit retourner par lautre joueur
-            coordEnemy = self.attaquer() #return (column,line)
+            coordEnemy = self.attaquer() #return (i,j)
         toucheYou = self.checkShip(coordEnemy)
         if self.checkWin() == 'win':
           toucheYou = 'win'
@@ -50,7 +49,7 @@ class classGame(interface):
         else:
           self.rapporter(message = "A l'eau")
           color = 'blue'
-        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),color)#appel la fonction a Ahamed a changer
+        self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),color)
         toucheEnemy = None
         while toucheEnemy == None:
           toucheEnemy = self.rapporter()
@@ -93,11 +92,11 @@ class classGame(interface):
         backupBoard = self.BoardYou
         backupShip = self.shipYou
 
-        if self.coord1[0] == self.coord2[0]: #Vertical
-            for i in range(sorted((self.coord1[1],self.coord2[1]))[0],sorted((self.coord1[1],self.coord2[1]))[1]+1):# Sert a faire un range du plus petit nombre au plus grand
-                if self.BoardYou[i][self.coord1[0]] == ".": #i = line, self.coord1[0] = column
-                    (self.BoardYou[i][self.coord1[0]]) = len(self.ship)
-                    self.shipYou[len(self.ship)-1].append((self.coord1[0],i))
+        if self.coord1[1] == self.coord2[1]: #Vertical
+            for i in range(sorted((self.coord1[0],self.coord2[0]))[0],sorted((self.coord1[0],self.coord2[0]))[1]+1):# Sert a faire un range du plus petit nombre au plus grand
+                if self.BoardYou[i][self.coord1[1]] == ".": #i = line, self.coord1[1] = j
+                    (self.BoardYou[i][self.coord1[1]]) = len(self.ship)
+                    self.shipYou[len(self.ship)-1].append((i,self.coord1[0]))
                     test = True
                 else:
                     self.BoardYou = backupBoard
@@ -105,11 +104,11 @@ class classGame(interface):
                     test = False
                     break
 
-        elif self.coord1[1] == self.coord2[1]: #Horizontal
-            for i in range(sorted((self.coord1[0],self.coord2[0]))[0],sorted((self.coord1[0],self.coord2[0]))[1]+1):
-                if self.BoardYou[self.coord1[1]][i] == ".": # self.coord1[1][i] = line, i = column
-                    self.BoardYou[self.coord1[1]][i] = len(self.ship)
-                    self.shipYou[len(self.ship)-1].append((i,self.coord1[1]))
+        elif self.coord1[0] == self.coord2[0]: #Horizontal
+            for j in range(sorted((self.coord1[1],self.coord2[1]))[0],sorted((self.coord1[1],self.coord2[1]))[1]+1):
+                if self.BoardYou[self.coord1[0]][j] == ".": # self.coord1[0] = line, j = column
+                    self.BoardYou[self.coord1[0]][j] = len(self.ship)
+                    self.shipYou[len(self.ship)-1].append((self.coord1[1],j))
                     test = True
                 else:
                     self.BoardYou = backupBoard
@@ -135,17 +134,17 @@ class classGame(interface):
 
     def checkShip(self,coord):
         coord = (coord[0],coord[1])#coord arrive en liste et je le tranforme en tuple
-        for i in self.shipYou:
-            if coord in i:
-                i.remove(coord)
-                if len(i)==0:
+        for x in self.shipYou:
+            if coord in x:
+                x.remove(coord)
+                if len(x)==0:
                     return 'coulé'
                 else:
                     return 'touché'
         return None
 
     def checkWin(self):
-        for i in self.shipYou:
-            if len(i) != 0:
+        for x in self.shipYou:
+            if len(x) != 0:
                 return None
         return 'win'
