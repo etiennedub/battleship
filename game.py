@@ -6,7 +6,7 @@ class classGame(interface):
     def __init__(self,pseudo):
         super().__init__(pseudo)
         self.phase = False
-        self.ship = [2,3,3,4,5]#original [2,3,3,4,5]
+        self.ship = [2,3,4,5]#original [2,3,3,4,5]
         self.shipYou = []
         self.firstTime = True
         self.BoardEnemy = [] #liste de l'enemie

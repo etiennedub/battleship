@@ -20,10 +20,11 @@ class classInterface(reseau):
         print('v pour....')
 
     def drawLine(self,color,coord1,coord2): #coordX accepte un tuple (i,j,"player") et dessine une ligne horizontal ou vertical de coor1 a coord2
+        print(coord1,coord2)
         if coord1[2] == coord2[2] and coord2[2] == "you":
-            turtle.goto(38+coord1[0]*25,87-25*coord1[1])
+            turtle.goto(38+coord1[1]*25,87-25*coord1[0])
         elif coord1[2] == coord2[2] and coord2[2] == "enemy":
-            turtle.goto(-262+(25*coord1[0]),87-25*coord1[1])
+            turtle.goto(-262+(25*coord1[1]),87-25*coord1[0])
         else:
             print('wrong player')
             return 0
