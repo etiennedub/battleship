@@ -5,6 +5,8 @@ class classGame(interface):
 
     def __init__(self,pseudo):
         super().__init__(pseudo)
+        turtle.Screen().onkey(self.pleindre,'p')
+        turtle.Screen().onkey(self.numNavire,'b')
         self.phase = False
         self.ship = [2,3,4,5]#original [2,3,3,4,5]
         self.shipYou = []
@@ -18,6 +20,15 @@ class classGame(interface):
             self.BoardEnemy.append(['.','.','.','.','.','.','.','.','.','.',])#Les deux liste ont 10 listes de 10 espaces (Ex.: liste[i][j])
                                         # " " est une espace vide (a l'eau), un chiffre (de 0 a 4) vaut un bateau
                                         #, un chiffre en string ("1") est un bateau touche et un "x" en string est un tir a l'eau
+    def pleindre(self):
+        dire = input('Vous pouvez protester \
+              Entrez votre message: ')
+        self.protester(dire)
+
+    def numNavire(self):
+        return 'Vous avez {} navire,' \
+               'il vous en reste {}'.format(len(self.ship),len(self.shipYou))
+
     def attack(self):
         if self.firstTime == True:
           print('Clicker sur la case a attaquer')

@@ -15,9 +15,9 @@ class classInterface(reseau):
 
 
     def help(self):
-        print('-------Menu------')
-        print('m pour afficher le menu')
-        print('v pour....')
+        print("-------Menu------'\nAppuiyer sur 'b' pour afficher le nombre de\
+        bateau. \nAppuyer \sur 'p' pour protester. \nAppuyer sur 'j' pour afficher les regles du jeu")
+
 
     def drawLine(self,color,coord1,coord2): #coordX accepte un tuple (i,j,"player") et dessine une ligne horizontal ou vertical de coor1 a coord2
         print(coord1,coord2)
