@@ -45,10 +45,15 @@ class ClassGame(ClassInterface):
             print('mauvais joueur!')
             self.coord1 = None
             return None
+        if self.BoardEnemy[self.coord1[0]][self.coord1[1]] == "X":
+            print("Vous avez déjà attaqué cette case !")
+            self.coord1 = None
+            return None
         self.firstTime = True
         coordEnemy = None
         self.attaquer(cellule = (self.coord1[0],self.coord1[1]))
         self.drawCircle(self.coord1,'black')
+        self.BoardEnemy[self.coord1[0]][self.coord1[1]] = "X"
         #self.phase = 'recevoir'
         while coordEnemy == None:#reste dans la boucle jusqua une position soit retourner par lautre joueur
             try:
