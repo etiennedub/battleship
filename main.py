@@ -3,7 +3,7 @@
 
 __auteur__ = "ETDUB11"
 __date__ = "2015-12-11"
-__coequipiers__ = "IDUL", "IDUL"
+__coequipiers__ = "VIMAR115", "AAHA"
 
 import turtle
 from game import ClassGame#Importer la class de l'interface
