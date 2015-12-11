@@ -3,12 +3,12 @@ from interface import classInterface as interface
 
 class classGame(interface):
 
-    def __init__(self,pseudo,adv):
-        super().__init__(pseudo,adv)
+    def __init__(self,pseudo):
+        super().__init__(pseudo)
         turtle.Screen().onkey(self.pleindre,'p')
         turtle.Screen().onkey(self.numNavire,'b')
         self.phase = False
-        self.ship = [2]#original [2,3,3,4,5]
+        self.ship = [2,3,4,5]#original [2,3,3,4,5]
         self.shipYou = []
         self.firstTime = True
         self.BoardEnemy = [] #liste de l'enemie
@@ -23,10 +23,7 @@ class classGame(interface):
     def pleindre(self):
         dire = input('Vous pouvez protester \
               Entrez votre message: ')
-        try:
-            self.protester(dire)
-        except:
-            turtle.bye()
+        self.protester(dire)
 
     def numNavire(self):
         return 'Vous avez {} navire,' \
@@ -46,13 +43,10 @@ class classGame(interface):
         self.firstTime = True
         coordEnemy = None
         self.attaquer(cellule = (self.coord1[0],self.coord1[1]))
-        self.drawCircle(self.coord1,'black')
+        self.drawCircle(self.coord1,'gray')
         #self.phase = 'recevoir'
         while coordEnemy == None:#reste dans la boucle jusqua une position soit retourner par lautre joueur
-            try:
-                coordEnemy = self.attaquer() #return (i,j)
-            except reseau.Protestation as err:
-                print(err)
+            coordEnemy = self.attaquer() #return (i,j)
         toucheYou = self.checkShip(coordEnemy)
         if self.checkWin() == 'win':
           toucheYou = 'win'
@@ -113,7 +107,7 @@ class classGame(interface):
             for i in range(sorted((self.coord1[0],self.coord2[0]))[0],sorted((self.coord1[0],self.coord2[0]))[1]+1):# Sert a faire un range du plus petit nombre au plus grand
                 if self.BoardYou[i][self.coord1[1]] == ".": #i = line, self.coord1[1] = j
                     (self.BoardYou[i][self.coord1[1]]) = len(self.ship)
-                    self.shipYou[len(self.ship)-1].append((i,self.coord1[1]))
+                    self.shipYou[len(self.ship)-1].append((i,self.coord1[0]))
                     test = True
                 else:
                     self.BoardYou = backupBoard
@@ -125,7 +119,7 @@ class classGame(interface):
             for j in range(sorted((self.coord1[1],self.coord2[1]))[0],sorted((self.coord1[1],self.coord2[1]))[1]+1):
                 if self.BoardYou[self.coord1[0]][j] == ".": # self.coord1[0] = line, j = column
                     self.BoardYou[self.coord1[0]][j] = len(self.ship)
-                    self.shipYou[len(self.ship)-1].append((self.coord1[0],j))
+                    self.shipYou[len(self.ship)-1].append((self.coord1[1],j))
                     test = True
                 else:
                     self.BoardYou = backupBoard

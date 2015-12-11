@@ -3,8 +3,8 @@ from reseau import ClientReseau as reseau
 
 class classInterface(reseau):
 
-    def __init__(self,pseudo,adv,*,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
-        super().__init__(pseudo,adversaire = adv)
+    def __init__(self,pseudo,*,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
+        super().__init__(pseudo)
         self.coord1 = None
         self.coord2 = None
         turtle.ht() #hide the turtle
@@ -12,11 +12,6 @@ class classInterface(reseau):
         turtle.bgpic("interface.gif") #charge le background
         turtle.setup (width=x, height=y, startx=0, starty=0)#sert a juster la grandeur de la fenetre mais marche pas pour moi
         turtle.Screen().onkey(self.help,'m')
-        turtle.goto(-170,115)
-        turtle.write(self.adv,align="center",font=("Arial",25, "normal"))
-        turtle.goto(140,115)
-        turtle.write(pseudo,align="center", font=("Arial",25, "normal"))
-
 
 
     def help(self):
