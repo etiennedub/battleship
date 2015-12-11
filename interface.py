@@ -3,8 +3,8 @@ from reseau import ClientReseau as reseau
 
 class classInterface(reseau):
 
-    def __init__(self,pseudo,*,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
-        super().__init__(pseudo)
+    def __init__(self,pseudo,adv,*,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
+        super().__init__(pseudo,adversaire = adv)
         self.coord1 = None
         self.coord2 = None
         turtle.ht() #hide the turtle
@@ -12,12 +12,16 @@ class classInterface(reseau):
         turtle.bgpic("interface.gif") #charge le background
         turtle.setup (width=x, height=y, startx=0, starty=0)#sert a juster la grandeur de la fenetre mais marche pas pour moi
         turtle.Screen().onkey(self.help,'m')
+        turtle.goto(-170,115)
+        turtle.write(self.adv,align="center",font=("Arial",25, "normal"))
+        turtle.goto(140,115)
+        turtle.write(pseudo,align="center", font=("Arial",25, "normal"))
+
 
 
     def help(self):
         print("-------Menu------'\nAppuiyer sur 'b' pour afficher le nombre de\
         bateau. \nAppuyer \sur 'p' pour protester. \nAppuyer sur 'j' pour afficher les regles du jeu")
-
 
     def drawLine(self,color,coord1,coord2): #coordX accepte un tuple (i,j,"player") et dessine une ligne horizontal ou vertical de coor1 a coord2
         print(coord1,coord2)
