@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import turtle
@@ -15,7 +16,7 @@ class ClassGame(ClassInterface):
     def __init__(self,pseudo,adv):
         super().__init__(pseudo,adv)
         self.phase = False
-        self.ship = [2] #Liste de bateau à placer au début de la partie. int = longueur
+        self.ship = [2,3,3,4,5] #Liste de bateau à placer au début de la partie. int = longueur
         self.shipYou = []
         self.firstTime = True
         self.BoardEnemy = [] #liste de l'enemie

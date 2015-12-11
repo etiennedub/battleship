@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 import turtle
@@ -41,8 +42,8 @@ class ClassInterface(ClientReseau):
 
     def help(self):
         """Affiche un menu d'aide"""
-        print("-------Menu------'\nAppuiyer sur 'b' pour afficher le nombre de\
-        bateau. \nAppuyer \sur 'p' pour protester. \nAppuyer sur 'j' pour afficher les regles du jeu")
+        print("-------Menu------'\n\
+        \nAppuyer sur 'p' pour protester. \nAppuyer sur 'j' pour afficher les regles du jeu")
     
     def rule(self):
         """"

@@ -1,4 +1,9 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+
+__auteur__ = "ETDUB11"
+__date__ = "2015-12-11"
+__coequipiers__ = "IDUL", "IDUL"
 
 import turtle
 from game import ClassGame#Importer la class de l'interface
