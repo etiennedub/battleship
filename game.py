@@ -1,12 +1,12 @@
 import turtle
-from interface import classInterface as interface
+from interface import ClassInterface
 
-class classGame(interface):
+
+class ClassGame(ClassInterface):
 
     def __init__(self,pseudo,adv):
         super().__init__(pseudo,adv)
         turtle.Screen().onkey(self.pleindre,'p')
-        turtle.Screen().onkey(self.numNavire,'b')
         self.phase = False
         self.ship = [2,3,4,5]#original [2,3,3,4,5]
         self.shipYou = []
@@ -21,29 +21,26 @@ class classGame(interface):
                                         # " " est une espace vide (a l'eau), un chiffre (de 0 a 4) vaut un bateau
                                         #, un chiffre en string ("1") est un bateau touche et un "x" en string est un tir a l'eau
     def pleindre(self):
-        dire = input('Vous pouvez protester \
-              Entrez votre message: ')
+        print('Vous pouvez protester')
+        dire = input('Entrez votre message: ')
         try:
             self.protester(dire)
         except:
             print("Vous quitter la partie suite à votre protestation")
             turtle.bye()
 
-    def numNavire(self):
-        return 'Vous avez {} navire,' \
-               'il vous en reste {}'.format(len(self.ship),len(self.shipYou))
 
     def attack(self):
         if self.firstTime == True:
-          print('Clicker sur la case a attaquer')
-          self.firstTime = False
+            print('Clicker sur la case a attaquer')
+            self.firstTime = False
         if self.coord1 == None:
             turtle.Screen().onclick(self.setCoord1)
             return None
         if self.coord1[2] != 'enemy':
-          print('mauvais joueur!')
-          self.coord1 = None
-          return None
+            print('mauvais joueur!')
+            self.coord1 = None
+            return None
         self.firstTime = True
         coordEnemy = None
         self.attaquer(cellule = (self.coord1[0],self.coord1[1]))
@@ -58,30 +55,30 @@ class classGame(interface):
                 return None
         toucheYou = self.checkShip(coordEnemy)
         if self.checkWin() == 'win':
-          toucheYou = 'win'
+            toucheYou = 'win'
         if toucheYou == 'coulé' or toucheYou == 'touché':
-          color = 'red'
-          self.rapporter(message = toucheYou)
+            color = 'red'
+            self.rapporter(message = toucheYou)
         elif toucheYou == 'win':
-          self.rapporter(message = 'win')
-          self.phase = 'lose'
-          return None
+            self.rapporter(message = 'win')
+            self.phase = 'lose'
+            return None
         else:
-          self.rapporter(message = "A l'eau")
-          color = 'blue'
+            self.rapporter(message = "A l'eau")
+            color = 'blue'
         self.drawCircle((coordEnemy[0],coordEnemy[1],'you'),color)
         toucheEnemy = None
         while toucheEnemy == None:
-          toucheEnemy = self.rapporter()
+            toucheEnemy = self.rapporter()
         print(toucheEnemy)
         if toucheEnemy in ('coulé','touché'):
-          color = 'red'
+            color = 'red'
         elif toucheEnemy == 'win':
-          print('Vous avez gagne')
-          self.phase = 'win'
-          return None
+            print('Vous avez gagne')
+            self.phase = 'win'
+            return None
         else:
-          color = 'blue'
+            color = 'blue'
         self.drawCircle(self.coord1,color)
         self.coord1 = None
 

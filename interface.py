@@ -1,8 +1,10 @@
-import turtle
-from reseau import ClientReseau as reseau
-from reseau import Protestation
+# -*- coding: utf-8 -*-
 
-class classInterface(reseau,Protestation):
+import turtle
+from reseau import ClientReseau
+
+
+class ClassInterface(ClientReseau):
 
     def __init__(self,pseudo,adv,*,x=600,y=400): #sert a init linterface || x = largeur de la fenetre et y la hauteur
         super().__init__(pseudo,adversaire = adv)

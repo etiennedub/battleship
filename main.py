@@ -1,5 +1,6 @@
 import turtle
-from game import classGame as game #Importer la class de l'interface
+from game import ClassGame#Importer la class de l'interface
+
 import argparse
 
 
@@ -47,7 +48,7 @@ if __name__ == '__main__':
          "Utiliser la souris pour attaquer sur la carte de l'ennemie \n  BON JEU!")
     args = parser.parse_args()
 
-    i = game(args.nom,args.adversaire)
+    i = ClassGame(args.nom,args.adversaire)
     print('Votre adversaire est: '+ str(i.adv))
     i.phase = "PlaceShip"
 
