@@ -1,14 +1,21 @@
+# -*- coding: utf-8 -*-
+
 import turtle
 from interface import ClassInterface
 
 
 class ClassGame(ClassInterface):
+    """Exécute toutes les focntions relier au jeu
+    sans rien afficher directement
+
+    :param pseudo: votre pseudonyme.
+    :param adv: le pseudonyme de votre adversaire.
+    """
 
     def __init__(self,pseudo,adv):
         super().__init__(pseudo,adv)
-        turtle.Screen().onkey(self.pleindre,'p')
         self.phase = False
-        self.ship = [2,3,4,5]#original [2,3,3,4,5]
+        self.ship = [2] #Liste de bateau à placer au début de la partie. int = longueur
         self.shipYou = []
         self.firstTime = True
         self.BoardEnemy = [] #liste de l'enemie
@@ -20,17 +27,13 @@ class ClassGame(ClassInterface):
             self.BoardEnemy.append(['.','.','.','.','.','.','.','.','.','.',])#Les deux liste ont 10 listes de 10 espaces (Ex.: liste[i][j])
                                         # " " est une espace vide (a l'eau), un chiffre (de 0 a 4) vaut un bateau
                                         #, un chiffre en string ("1") est un bateau touche et un "x" en string est un tir a l'eau
-    def pleindre(self):
-        print('Vous pouvez protester')
-        dire = input('Entrez votre message: ')
-        try:
-            self.protester(dire)
-        except:
-            print("Vous quitter la partie suite à votre protestation")
-            turtle.bye()
-
 
     def attack(self):
+        """
+        Fonction appelé durant la phase d'attaque.
+        Elle envoie la position d'attaque à l'adversaire
+        et recoit celle de l'adversaire.
+        """
         if self.firstTime == True:
             print('Clicker sur la case a attaquer')
             self.firstTime = False
@@ -70,19 +73,23 @@ class ClassGame(ClassInterface):
         toucheEnemy = None
         while toucheEnemy == None:
             toucheEnemy = self.rapporter()
-        print(toucheEnemy)
         if toucheEnemy in ('coulé','touché'):
             color = 'red'
+            print(toucheEnemy)
         elif toucheEnemy == 'win':
-            print('Vous avez gagne')
             self.phase = 'win'
             return None
         else:
+            print(toucheEnemy)
             color = 'blue'
         self.drawCircle(self.coord1,color)
         self.coord1 = None
 
     def placeShip(self):
+        """ Fonction appelé durant la phase "placeShip"
+        Fait un lien avec l'utilisateur et appel la fonction 
+        shipX pour chaque bateau à placer
+        """
         if self.firstTime == True:
             print("Placer le bateau de {} cases".format(self.ship[0]))
             self.firstTime = False
@@ -90,6 +97,11 @@ class ClassGame(ClassInterface):
         self.shipX(self.ship[0])
 
     def shipX(self,x):
+        """
+        place le bateau de la longeur indiqué en x.
+        La fonction appel l'interface pour avoir 2 coordonée,
+        puis elle teste les coordonée pour placer le bateau
+        """
         if self.coord1 == None:
             turtle.Screen().onclick(self.setCoord1)
             return None
@@ -105,7 +117,7 @@ class ClassGame(ClassInterface):
             print("La dimension du bateau est de {} cases".format(x))
             return None
 
-# si aucun des if precedent n'est vrai, le code suivant s'execute
+        # si aucun des if precedent n'est vrai, le code suivant s'execute
         backupBoard = self.BoardYou
         backupShip = self.shipYou
 
@@ -144,12 +156,15 @@ class ClassGame(ClassInterface):
                 self.phase = "Attack" #Prochaine phase
             self.firstTime = True
         else:
-            print('case invalide ou occupe')
+            print('Cases invalides ou occupées')
             self.firstTime = True
             self.coord1,self.coord2 = None,None
             return None
 
     def checkShip(self,coord):
+        """Recoie une liste de la coordoné d'attaque.
+        Renvoie un str touché ou coulé
+        """ 
         coord = (coord[0],coord[1])#coord arrive en liste et je le tranforme en tuple
         for x in self.shipYou:
             if coord in x:
@@ -161,7 +176,10 @@ class ClassGame(ClassInterface):
         return None
 
     def checkWin(self):
+        """"
+        Vérifie si l'adversaire à gagné
+        """
         for x in self.shipYou:
             if len(x) != 0:
-                return None
-        return 'win'
+                return None #Se passe rien
+        return 'win' # L'adversaire à gagné
