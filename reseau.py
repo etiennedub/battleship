@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-import ujson as json
+import json as json
 import socket, time
 
 class Protestation(Exception):
@@ -17,6 +17,7 @@ class ClientReseau(object):
 
     def __init__(self, pseudo, *, adversaire=None, serveur='python.gel.ulaval.ca', port=31415):
         self.pseudo = pseudo
+        self.message = ""
         self.adv = adversaire
         self.serveur = serveur
         self.port = port
@@ -133,6 +134,7 @@ class ClientReseau(object):
         if "erreur" in reponse:
             raise Exception(reponse["erreur"])
         if reponse.get('requête') == 'protester':
+            self.message = reponse['message']
             raise Protestation(reponse['message'])
         return reponse
 

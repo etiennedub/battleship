@@ -11,11 +11,21 @@ def main():
     elif i.phase == "Attack": # Nom fictif
         i.attack()
     elif i.phase == "win":
-        print('Vous avez gagne!!!!!!!!!!!')
+        turtle.goto(0,0)
+        turtle.pencolor('black')
+        turtle.write('Vous avez gagné!',align="center",font=("Arial",70, "normal"))
+        i.phase = "exit"
     elif i.phase == "lose":
-        print('Vous avez perdu!!!!!!')
+        turtle.goto(0,0)
+        turtle.pencolor('black')
+        turtle.write('Vous avez perdu!',align="center",font=("Arial",70, "normal"))
+        i.phase = "exit"
+    elif i.phase == "exit":
+        turtle.exitonclick()
+        return None
     else:
         print('out')
+
 
     turtle.ontimer(main,500)
 
